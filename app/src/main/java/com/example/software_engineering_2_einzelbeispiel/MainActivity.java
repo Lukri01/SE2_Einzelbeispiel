@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     TextView output;
 
     Button abschicken;
+    Button berechnen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         abschicken = findViewById(R.id.submit_button);
+        berechnen = findViewById(R.id.berechnen_button);
         matrNr_input = findViewById(R.id.matrNr_input);
         output = findViewById(R.id.textView7);
 
@@ -34,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendMatNr(matrNr_input.getText().toString());
+            }
+        });
+
+        berechnen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                berechnung(matrNr_input.getText().toString());
             }
         });
     }
@@ -66,5 +75,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         thread.start();
+    }
+
+    public void berechnung(String number) {
+        for (int i = 0; i < number.length(); i++) {
+            for (int j = 0; j < number.length(); j++) {
+                if (ggt(number.charAt(i),number.charAt(j)) > 1 && i != j) {
+                    output.setText(i+", "+j);
+                }
+            }
+        }
+    }
+
+    public int ggt(int num1, int num2) {
+        while (num2 != 0) {
+            if (num1 > num2) {
+                num1 -= num2;
+            } else {
+                num2 -= num1;
+            }
+        }
+        return num1;
     }
 }
